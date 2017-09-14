@@ -1,12 +1,11 @@
 {
   "name": "uvalidator",
   "version": "1.0.0",
-  "description": "common validator module",
+  "description": "unified validator",
   "main": "lib/index.js",
-  "license": "MIT",
-  "scripts": {
-    "build": "rollup --c",
-    "test": "karma start karma.conf.js"
+  "directories": {
+    "lib": "lib",
+    "test": "test"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -19,5 +18,23 @@
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-uglify": "^2.0.1"
-  }
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "test": "karma start karma.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lkiarest/validator.git"
+  },
+  "keywords": [
+    "uvalidator",
+    "validator"
+  ],
+  "author": "qintx",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lkiarest/validator/issues"
+  },
+  "homepage": "https://github.com/lkiarest/validator#readme"
 }

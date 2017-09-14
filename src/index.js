@@ -3,19 +3,7 @@
  */
 
 // 内置默认规则，每一个规则包含 name 和 validate function
-const registeredRules = {
-    required: (val) => {
-        return typeof val !== 'undefined' &&
-            val !== '' &&
-            val !== null
-    },
-    maxlength: (val, max) => {
-        return !val || val.length <= max
-    },
-    minlength: (val, min) => {
-        return val && val.length >= min
-    }
-}
+import registeredRules from './rules'
 
 /**
  * 新增校验规则

@@ -1,4 +1,4 @@
-describe("required check", function() {
+describe("[test required]", function() {
     it("require a string",function(){
         const result = validator.validate({
             name: 'qtx'
