@@ -1,5 +1,5 @@
 {
-  "name": "validator",
+  "name": "uvalidator",
   "version": "1.0.0",
   "description": "common validator module",
   "main": "lib/index.js",
