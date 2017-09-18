@@ -1,6 +1,9 @@
 # A light weight js object validator
 Very easy to use and extend check rules of your own
 
+### supported rules (on development)
+email, max, maxlength, min, minlength, number, regex, required
+
 ### install
 ```shell
     npm install uvalidator # yarn add uvalidator
