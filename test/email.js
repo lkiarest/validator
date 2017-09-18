@@ -9,7 +9,7 @@ describe("[email check]", function() {
             }
         })
 
-        expect(true).toEqual(result.success)
+        expect(true).toEqual(result.ok())
     })
 
     it("test email with complex format",function(){
@@ -22,7 +22,7 @@ describe("[email check]", function() {
             }
         })
 
-        expect(true).toEqual(result.success)
+        expect(true).toEqual(result.ok())
     })
 
     it("test email with invalid name",function(){
@@ -35,8 +35,8 @@ describe("[email check]", function() {
             }
         })
 
-        expect(false).toEqual(result.success)
-        expect('not an email').toEqual(result.errors[0].message)
+        expect(false).toEqual(result.ok())
+        expect('not an email').toEqual(result.getFirstError().message)
     })
 
     it("test email with invalid suffix",function(){
@@ -49,8 +49,8 @@ describe("[email check]", function() {
             }
         })
 
-        expect(false).toEqual(result.success)
-        expect('not an email').toEqual(result.errors[0].message)
+        expect(false).toEqual(result.ok())
+        expect('not an email').toEqual(result.getFirstError().message)
     })
 
     it("test email without @",function(){
@@ -63,7 +63,7 @@ describe("[email check]", function() {
             }
         })
 
-        expect(false).toEqual(result.success)
-        expect('not an email').toEqual(result.errors[0].message)
+        expect(false).toEqual(result.ok())
+        expect('not an email').toEqual(result.getFirstError().message)
     })
 })

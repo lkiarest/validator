@@ -4,6 +4,7 @@
 
 // 内置默认规则，每一个规则包含 name 和 validate function
 import registeredRules from '../build/tmpRules'
+import Result from './result'
 
 /**
  * 新增校验规则
@@ -131,7 +132,7 @@ const validateRule = (obj, name, ruleDef) => {
  */
 const validate = (obj, rules) => {
     if (!obj || !rules) { // 无参数或规则，直接返回失败
-        return {success: false, errors: ['校验缺少参数']}
+        return new Result(false, ['校验缺少参数'])
     }
 
     const errors = []
@@ -154,11 +155,7 @@ const validate = (obj, rules) => {
         }
     })
 
-    let success = errors.length === 0
-    return {
-        success,
-        errors
-    }
+    return new Result(errors.length === 0, errors)
 }
 
 export default {

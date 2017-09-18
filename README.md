@@ -25,14 +25,14 @@ email, max, maxlength, min, minlength, number, regex, required
         user: 'lily'
     }, rules)
     // ok !
-    result.success === true
+    result.ok() === true
 
     result = validator.validate({
         user: ''
     }, rules)
     // failed !
-    result.success === false
-    result.errors = [{name: 'user', message: 'name is required'}]
+    result.ok() === false
+    result.getErrors() = [{name: 'user', message: 'name is required'}]
 ```
 
 ### with dynamic params
