@@ -31,7 +31,8 @@
   },
   "keywords": [
     "uvalidator",
-    "validator"
+    "validator",
+    "async"
   ],
   "author": "qintx",
   "license": "MIT",

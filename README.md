@@ -1,6 +1,11 @@
 # A light weight js object validator
 Very easy to use and extend check rules of your own
 
+- normal validation
+- async validation
+- user defined validation
+- dynamic validation
+
 ### supported rules (on development)
 email, max, maxlength, min, minlength, number, regex, required
 
@@ -94,4 +99,35 @@ email, max, maxlength, min, minlength, number, regex, required
         name: '',
         desc: 'hello world'
     }, rules)
+```
+
+### async validation
+```javascript
+    const rules = {
+        name: {
+            rule: function(val) {
+                return new Promise(function(resolve) {
+                    // ... send ajax request to check name
+                    resolve(false) // check failed
+                })
+            },
+            errorMsg: 'this name has been used'
+        }
+    }
+
+    // the 'validate' method will return a Promise while any rule is async,
+    // and the errors (of sync or async rules) will be resolved by order
+    validator.validate({
+        name: 'aaa'
+    }, rules).then(result => {
+        result.ok() // false
+        result.getErrors() // [{name: 'name', message: 'this name has been used'}]
+    })
+```
+
+### About Result Object
+```
+result.ok() // true or false
+result.getErrors() // Array of errors, each error has name and message property
+result.getFirstError() // the first error object, has name and message property
 ```

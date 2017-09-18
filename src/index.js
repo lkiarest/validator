@@ -6,6 +6,11 @@
 import registeredRules from '../build/tmpRules'
 import Result from './result'
 
+// check the promise object
+const isPromise = (obj) => {
+    return obj && obj.then && (typeof(obj.then) === 'function')
+}
+
 /**
  * 新增校验规则
  * @param  {Object | Array} rule 规则（可以使用数组传多个）
@@ -89,16 +94,44 @@ const validateRule = (obj, name, ruleDef) => {
     }
 
     const valid = validFunc.apply(obj, args)
+    if (isPromise(valid)) { // support validation by promise method
+        return valid.then(data => {
+            return data ? null : {
+                name,
+                message: errorMsg
+            }
+        }).catch(e => {
+            return {
+                name,
+                message: errorMsg
+            }
+        })
+    }
+
     return valid ? null : {
         name,
         message: errorMsg
     }
 }
 
+const collectResults = (errors, promises, ret) => {
+    let hasPromise = false
+
+    if (isPromise(ret)) {
+        promises.push(ret)
+        hasPromise = true
+    } else if (ret) {
+        errors.push(ret)
+        promises.push(ret)
+    }
+
+    return hasPromise
+}
+
 /**
- * 校验函数，暂不支持异步校验
+ * 校验函数，[支持异步校验]
  * @param  {Object} obj   待校验对象，为键值对如：{name: '11', age: '-1'}
- * @param  {Object} rules 校验规则支持默认规则和自定义规则（一个或多个）
+ * @param  {Object | Promise} rules 校验规则支持默认规则和自定义规则（一个或多个）
  * @example
  *     <caption>Rules definition</caption>
  *     const rules = {
@@ -128,32 +161,39 @@ const validateRule = (obj, name, ruleDef) => {
  *
  *     validate({name: '', age: 19}) === false // all rules validate failed
  *
- * @return {Object}       是否通过校验 {success: true} / {success: false, errors: [...]}
+ * @return {Result}       是否通过校验 {success: true} / {success: false, errors: [...]}
  */
 const validate = (obj, rules) => {
     if (!obj || !rules) { // 无参数或规则，直接返回失败
         return new Result(false, ['校验缺少参数'])
     }
 
-    const errors = []
+    let errors = []
+    const promises = [] // collect all promise rules
+    let hasPromise = false
 
     Object.keys(rules).forEach(key => {
         const ruleSet = rules[key]
 
         if (Array.isArray(ruleSet)) {
             ruleSet.forEach(rule => {
-                let ret = validateRule(obj, key, rule)
-                if (ret) { // 返回错误信息
-                    errors.push(ret)
+                if (collectResults(errors, promises, validateRule(obj, key, rule))) {
+                    hasPromise = true
                 }
             })
         } else {
-            let ret = validateRule(obj, key, ruleSet)
-            if (ret) { // 返回错误信息
-                errors.push(ret)
+            if (collectResults(errors, promises, validateRule(obj, key, ruleSet))) {
+                hasPromise = true
             }
         }
     })
+
+    if (hasPromise) {
+        return Promise.all(promises).then(promiseData => {
+            errors = promiseData.filter(item => !!item) // filter errors from promise results
+            return new Result(errors.length === 0, errors)
+        })
+    }
 
     return new Result(errors.length === 0, errors)
 }
