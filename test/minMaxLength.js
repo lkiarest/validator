@@ -1,4 +1,4 @@
-describe("[min & max check]", function() {
+describe("[min & max length check]", function() {
     it("test maxlength correct",function(){
         const result = validator.validate({
             desc: 'aaa'

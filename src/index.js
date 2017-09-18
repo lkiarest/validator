@@ -3,7 +3,7 @@
  */
 
 // 内置默认规则，每一个规则包含 name 和 validate function
-import registeredRules from './rules'
+import registeredRules from '../build/tmpRules'
 
 /**
  * 新增校验规则
