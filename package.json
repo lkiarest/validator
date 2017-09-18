@@ -1,6 +1,6 @@
 {
   "name": "uvalidator",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "unified validator",
   "main": "lib/index.js",
   "directories": {
