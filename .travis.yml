@@ -3,10 +3,7 @@ node_js:
   - "iojs"
   - "7"
 dist: trusty
-install:
-  - yarn
 cache:
-  yarn: true
   directories:
     - "node_modules"
 before_script:
