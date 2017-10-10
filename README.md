@@ -1,7 +1,7 @@
 # A light weight js object validator
 
 [![Build Status](https://travis-ci.org/lkiarest/validator.svg?branch=master)](https://travis-ci.org/lkiarest/validator)
-[![npm](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/package/uvalidator)
+[![npm](https://img.shields.io/badge/npm-v1.0.4-green.svg)](https://www.npmjs.com/package/uvalidator)
 [![npm](https://img.shields.io/npm/l/express.svg)](https://github.com/lkiarest/validator/blob/master/LICENSE)
 
 Very easy to use and extend check rules of your own
