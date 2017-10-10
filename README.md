@@ -1,4 +1,7 @@
 # A light weight js object validator
+
+[![Build Status](https://travis-ci.org/lkiarest/validator.svg?branch=master)](https://travis-ci.org/lkiarest/validator)
+
 Very easy to use and extend check rules of your own
 
 - normal validation
